@@ -92,13 +92,10 @@ int main()
     if (winnable)
     {
         cout << "The solution is: ";
-        int mindx = min_element(ans, ans + g.nodenum) - ans;
-        while(ans[mindx] != 0)
+        int minvalue = *min_element(ans, ans + g.nodenum);
+        for (int i = 0; i < g.nodenum; i++)
         {
-            for (int i = 0; i < g.nodenum; i++)
-            {
-                ans[i]--;
-            }
+            ans[i]-= minvalue;
         }
         for (int i = 0; i < g.nodenum; i++)
         {
