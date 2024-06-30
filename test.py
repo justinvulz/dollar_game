@@ -14,9 +14,9 @@ from lib.matrix import *
 mt = np.array([[2,4,4],
                [-6,6,12],
                [10,4,16]])
+mt = np.array([[2,4,6],[1,3,5]])
+mbt = np.array([[4,6]])
 
-S = smith_normal_form(mt)
+inv = invariant_factors(mt)
 
-print(S)
-
-print(mt)
+print(inv)
