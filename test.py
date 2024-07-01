@@ -1,6 +1,7 @@
 from lib.graph import Graph
 from lib.matrix import *
 from lib.cube import *
+import sys
 import cProfile
 # g = Graph(3)
 
@@ -11,7 +12,9 @@ import cProfile
 # print(g.adjMatrix())
 # print(g.laplacianMatrix())
 
-np.set_printoptions(linewidth=400)
+np.set_printoptions(linewidth=5000)
+np.set_printoptions(threshold=np.inf)
+sys.set_int_max_str_digits(10000)
 mt = np.array([
     [2, -1, 0, -1, 0, 0],
     [-1, 4, -1, -1, -1, 0],
@@ -40,7 +43,8 @@ mt = np.array([
 # print(invariant_factors(ncubeRL))
 # print(invariant_factors(ncubeRL[:s-1, :s-1]))
 def test():
-    for i in range(2, 7):
-        print(i, end=': ')
-        print(invariant_factors(ncube_laplacian(i)[1:, 1:]))
+    for i in range(6, 7):
+        # print(i, end=': ')
+        invariant_factors(ncube_laplacian(i)[1:, 1:])
+        # print(invariant_factors(ncube_laplacian(i)[1:, 1:]))
 test()
