@@ -1,3 +1,4 @@
+from lib.matrix import *
 import numpy as np
 
 
@@ -11,7 +12,7 @@ class Graph:
 
     def get_invariant_factors(self) -> list[int]:
         if not self.__invariant_factors:
-            pass
+            self.__invariant_factors = invariant_factors(self.laplacianMatrix())
         return self.__invariant_factors
 
     def addEdge(self, v: int, w: int) -> None:
