@@ -49,8 +49,11 @@ class Config(Divisor):
         super().__init__(g,_c)
 
     def firing(self, i: int) -> None:
-        for j in self.adj(i):
-            self.D[j] += 1
-            self.D[i] -= 1
+        super().firing(i)
         self.D[self.rep] = 0
+    
+    def borring(self, i: int) -> None:
+        super().borring(i)
+        self.D[self.rep] = 0
+
     

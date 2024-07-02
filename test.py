@@ -47,9 +47,9 @@ s = 2**3
 # print(ncubeRL[:s-1, :s-1])
 # print(invariant_factors(ncubeRL))
 print(invariant_factors(ncubeRL[:s-1, :s-1]))
-# def test():
-#     for i in range(2, 7):
-#         print(i, end=': ')
-#         # invariant_factors(ncube_laplacian(i)[1:, 1:])
-#         print(invariant_factors(ncube_laplacian(i)[1:, 1:]))
-# test()
+def test():
+    for i in range(2, 7):
+        print(i, end=': ')
+        # invariant_factors(ncube_laplacian(i)[1:, 1:])
+        print(invariant_factors(ncube_laplacian(i)[1:, 1:]))
+test()
