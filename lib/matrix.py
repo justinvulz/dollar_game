@@ -75,8 +75,8 @@ def invariant_factors(mt: np.ndarray):
 
     A = np.array(mt,dtype=object)
     m, n = A.shape
-    # for t in range(min(m, n)):
-    for t in range(30):
+    for t in range(min(m, n)):
+    # for t in range(30):
         # If the first element is zero, swap rows and columns to make it non-zero
         if A[t, t] == 0:
             non_zero = np.nonzero(A[:t, t:])
@@ -92,7 +92,7 @@ def invariant_factors(mt: np.ndarray):
             clear_col(A, t, m)
             clear_row(A, t, n)
     
-    print(A)
+    # print(A)
 
     inv = [abs(int(A[i, i])) for i in range(min(m, n))]  # if A[i,i] != 0]
     inv.sort()
