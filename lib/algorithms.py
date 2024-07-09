@@ -1,12 +1,13 @@
-from divisior import Divisor, Config
-from graph import Graph
+from lib.divisor import Divisor, Config
+from lib.graph import Graph
 
 
 def greedy(D: Divisor) -> list[int]:
     n = D.graph.nodenum
     S = []
     ans = [0 for _ in range(n)]
-    while D >= 0:
+    while not D >= 0:
+        # print(D.D)
         if not len(S) == n:
             v = [i for i in range(n) if D[i] < 0][0]
             D.borring(v)

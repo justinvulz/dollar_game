@@ -10,15 +10,19 @@ class Graph:
         self.directed: bool = directed
         self.__invariant_factors: list[int] = []
 
-    def __init__(self, L: np.ndarray, directed: bool = False) -> None:
-        self.nodenum: int = L.shape[0]
-        self.adj: list[list[int]] = [[] for i in range(self.nodenum)]
-        self.directed: bool = directed
-        self.__invariant_factors: list[int] = []
+    # def __init__(self):
+    #     self.nodenum = 0
+    #     self.adj = []
+    #     self.directed = False
+    #     self.__invariant_factors = []
+
+    def init_with_Laplacian(self, laplacian: np.ndarray) -> None:
+        self.nodenum = len(laplacian)
         for i in range(self.nodenum):
             for j in range(self.nodenum):
-                k =abs(L[i][j])
-                self.adj[i].extend([j]*k)
+                    k = abs(laplacian[i][j])
+                    self.adj[i].extend([j]*k)
+        self.__invariant_factors = []
 
     def get_invariant_factors(self) -> list[int]:
         if not self.__invariant_factors:
