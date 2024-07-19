@@ -29,9 +29,9 @@ mt = np.array([
     [-1, 0, 2, -1]
 ], dtype=int)
 mt = np.array([
-    [2,4,4],
-    [6,8,10],
-    [12,16,20]
+    [3,-1,-1],
+    [-1,3,-1],
+    [-1,-1,2]
 ], dtype=int)
 # mt = np.array([
 #     [3, -1, -1, -1],
@@ -40,7 +40,7 @@ mt = np.array([
 #     [-1, -1, -1, 3]
 # ])
 # mt = np.array([[12, 6, 4], [3, 9, 6], [2, 16, 14]], dtype=int)
-# print(invariant_factors(mt))
+print(invariant_factors(mt))
 # ncubeRL = ncube_laplacian(3)
 # s = 2**3
 # print(ncubeRL)

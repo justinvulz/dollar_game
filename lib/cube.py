@@ -24,3 +24,15 @@ def ncube_laplacian(n: int) -> np.ndarray:
             if hammingDistance(i, j) == 1:
                 matrix[i][j] = -1
     return matrix
+
+def v2(x)  -> int:
+    n = 0
+    while x%2 == 0:
+        n += 1
+        x = x//2
+    return n
+
+def v2_largest_cyclic_factor_cube(n: int) -> int:
+    u = max(v2(x)+x for x in range(1,n))
+    u = max(u, v2(n)+n-1)
+    return u
