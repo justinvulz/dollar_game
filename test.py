@@ -1,55 +1,48 @@
 from lib.graph import Graph
 from lib.matrix import *
 from lib.cube import *
-import sys
-import cProfile
-# g = Graph(3)
+from lib.algorithms import *
+from lib.divisor import Divisor
+import numpy as np
 
-# g.addEdge(1, 0)
-# g.addEdge(1, 2)
-# g.addEdge(2, 0)
+# def test():
+#     N = 24
+#     m = ncube_laplacian(3)
+#     print(m)
+#     m  = m[1:,1:]
+#     m = m.astype(float)
+#     invm= np.linalg.inv(m)
+#     divisor = [N,-N] + [0]*(len(invm)-2)
+#     ans = invm @ np.array(divisor)
+#     ans = ans.astype(int)
+#     print(ans)
 
-# print(g.adjMatrix())
-# print(g.laplacianMatrix())
 
-np.set_printoptions(linewidth=5000)
-# np.set_printoptions(threshold=np.inf)
-sys.set_int_max_str_digits(10000)
-mt = np.array([
-    [2, -1, 0, -1, 0, 0],
-    [-1, 4, -1, -1, -1, 0],
-    [0, -1, 2, 0, -1, 0],
-    [-1, -1, 0, 4, -1, -1],
-    [0, -1, -1, -1, 4, -1],
-    [0, 0, 0, -1, -1, 2]
-], dtype=int)
-mt = np.array([
-    [3, -1, -1, -1],
-    [-1, 2, 0, -1],
-    [-1, 0, 2, -1]
-], dtype=int)
-mt = np.array([
-    [3,-1,-1],
-    [-1,3,-1],
-    [-1,-1,2]
-], dtype=int)
-# mt = np.array([
-#     [3, -1, -1, -1],
-#     [-1, 2, 0, -1],
-#     [-1, 0, 2, -1],
-#     [-1, -1, -1, 3]
-# ])
-# mt = np.array([[12, 6, 4], [3, 9, 6], [2, 16, 14]], dtype=int)
-print(invariant_factors(mt))
-# ncubeRL = ncube_laplacian(3)
-# s = 2**3
-# print(ncubeRL)
-# print(ncubeRL[:s-1, :s-1])
-# print(invariant_factors(ncubeRL))
-# print(invariant_factors(ncubeRL[:s-1, :s-1]))
-def test():
-    for i in range(4, 5):
-        print(i, end=': ')
-        # invariant_factors(ncube_laplacian(i)[1:, 1:])
-        print(invariant_factors(ncube_laplacian(i)[1:, 1:]))
-test()
+
+n = 3
+N = 24
+g = Graph(2**n)
+g.init_with_Laplacian(ncube_laplacian(n))
+d = Divisor(g, [N,-N] + [0]*(2**n-2))
+a = greedy(d)
+if all(i >= 0 for i in a):
+    print(a)
+else:
+    a = [i - min(a) for i in a]
+    print(a)
+
+
+#-----------------------
+
+reduce_n = 2*n
+reduce_g = Graph(reduce_n)
+reduce_g.addEdges([(0,1),(4,5)]+[(0,2),(2,4),(1,3),(3,5),(2,3)]*2)
+reduce_d = Divisor(reduce_g, [N,-N] + [0]*(reduce_n-2))
+
+reduce_a = greedy(reduce_d)
+if all(i>=0 for i in reduce_a):
+    print(reduce_a)
+else:
+    reduce_a = [i - min(reduce_a) for i in reduce_a]
+    print(reduce_a)
+

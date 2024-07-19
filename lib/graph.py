@@ -10,6 +10,20 @@ class Graph:
         self.directed: bool = directed
         self.__invariant_factors: list[int] = []
 
+    # def __init__(self):
+    #     self.nodenum = 0
+    #     self.adj = []
+    #     self.directed = False
+    #     self.__invariant_factors = []
+
+    def init_with_Laplacian(self, laplacian: np.ndarray) -> None:
+        self.nodenum = len(laplacian)
+        for i in range(self.nodenum):
+            for j in range(self.nodenum):
+                    k = abs(laplacian[i][j])
+                    self.adj[i].extend([j]*k)
+        self.__invariant_factors = []
+
     def get_invariant_factors(self) -> list[int]:
         if not self.__invariant_factors:
             self.__invariant_factors = invariant_factors(self.laplacianMatrix())
@@ -40,3 +54,5 @@ class Graph:
             for j in self.adj[i]:
                 matrix[i][j] += -1
         return matrix
+
+    
