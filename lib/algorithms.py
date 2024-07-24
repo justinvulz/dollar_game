@@ -1,24 +1,26 @@
 from lib.divisor import Divisor, Config
 from lib.graph import Graph
+import numba
 
 
 def greedy(D: Divisor) -> list[int]:
     n = D.graph.nodenum
-    S = []
+    S = set()
     ans = [0 for _ in range(n)]
-    while not D >= 0:
-        # print(D.D)
+    buffer = [i for i in range(n) if D.D[i] < 0]
+    while buffer:
         if not len(S) == n:
-            v = [i for i in range(n) if D[i] < 0][0]
+            v = buffer[0]
             D.borring(v)
             ans[v] -= 1
             if v not in S:
-                S.append(v)
+                S.add(v)
+            buffer = [i for i in range(n) if D.D[i] < 0]
         else:
             return []
     return ans
 
-
+# change the graph implementation, not sure if it will work
 def Dhar(c: Config) -> list[int]:
     S = [i for i in range(c.graph.nodenum)]
     S.remove(c.rep)
@@ -41,6 +43,7 @@ def Dhar(c: Config) -> list[int]:
     return S
 
 
+# change the graph implementation, not sure if it will work
 def get_q_reduced(D: Divisor, q: int) -> Divisor:
     while all(D[i] >= 0 for i in range(D.graph.nodenum) if i != q):
         v = [i for i in range(D.graph.nodenum) if D[i] < 0 and i != q][0]
@@ -55,3 +58,4 @@ def get_q_reduced(D: Divisor, q: int) -> Divisor:
         c = Config(D.graph, D.D, q)
         S = Dhar(c)
     return D
+

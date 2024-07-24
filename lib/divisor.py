@@ -7,21 +7,21 @@ class Divisor:
         self.graph: Graph = g
         self.D: list[int] = _d
 
-    def adj(self, i: int) -> list[int]:
+    def adj(self, i: int) -> dict:
         return self.graph.adj[i]
 
     def degree(self) -> int:
         return sum(self.D)
 
     def firing(self, i: int) -> None:
-        for j in self.adj(i):
-            self.D[j] += 1
-            self.D[i] -= 1
+        for j,m in self.adj(i).items():
+            self.D[j] += m
+            self.D[i] -= m
 
     def borring(self, i: int) -> None:
-        for j in self.adj(i):
-            self.D[j] -= 1
-            self.D[i] += 1
+        for j,m in self.adj(i).items():
+            self.D[j] -= m
+            self.D[i] += m
 
     def __gt__(self, other) -> bool:
         if isinstance(other, Divisor):
@@ -31,10 +31,10 @@ class Divisor:
             return all(d > other for d in self.D)
 
     def __ge__(self, other) -> bool:
-        if isinstance(other, Divisor):
-            return self.degree() >= other.degree()
+        # if isinstance(other, Divisor):
+            # return self.degree() >= other.degree()
 
-        if isinstance(other, int):
+        # if isinstance(other, int):
             return all(d >= other for d in self.D)
 
     def __lt__(self, other) -> bool:
