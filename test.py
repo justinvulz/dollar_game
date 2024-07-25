@@ -6,22 +6,32 @@ from lib.divisor import Divisor
 import numpy as np
 import math
 
-
-d = {}
-
-with open("data.txt","r") as f:
-    key =2
-    for line in f:
-        if line == "\n":
-            break
-        d[key] = line.strip().strip("[]").split(", ")
-        
-        for i in range(len(d[key])):
-            d[key][i] = int(d[key][i])
-        key += 1
+def factorial(n: int) -> int:
+    if n == 0:
+        return 1
+    return n*factorial(n-1)
+def mt(n: int) -> int:
+    return  max(v2(x)+x for x in range(1,n))
+# g = ncube_graph(3)
 
 
-for i in range(len(d.items())-4):
-    l = d[i+2]
-    print(l)
-    print(math.gcd(*l))
+# l = g.laplacianMatrix()
+
+# script = [[14, 0, 9, 5, 9, 5, 8, 6]]
+# s = np.array(script).transpose()
+# print(l @ s)
+# for i in range(2,6):
+#     g = ncube_graph(i)
+#     l = g.laplacianMatrix()
+#     print(i, end=': ')
+#     print(invariant_factors(l[1:, 1:]))
+#     print(mt(i))
+#     print("===")
+
+for n in range(2,11):
+    print(n, end=': \n')
+    for k in range(0,n-1):
+        upper = factorial(n-1)
+        lower = factorial(k)*factorial(n-2-k)
+        print(upper//lower, end=' ')
+    print("\n ========")
