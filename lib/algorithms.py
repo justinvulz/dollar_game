@@ -3,6 +3,16 @@ from lib.graph import Graph
 import numba
 
 
+def factorial(n: int) -> int:
+    if n == 0:
+        return 1
+    return n*factorial(n-1)
+
+
+def combination(n: int, k: int) -> int:
+    return factorial(n)//(factorial(k)*factorial(n-k))
+
+
 def greedy(D: Divisor) -> list[int]:
     n = D.graph.nodenum
     S = set()
@@ -21,6 +31,8 @@ def greedy(D: Divisor) -> list[int]:
     return ans
 
 # change the graph implementation, not sure if it will work
+
+
 def Dhar(c: Config) -> list[int]:
     S = [i for i in range(c.graph.nodenum)]
     S.remove(c.rep)
@@ -58,4 +70,3 @@ def get_q_reduced(D: Divisor, q: int) -> Divisor:
         c = Config(D.graph, D.D, q)
         S = Dhar(c)
     return D
-

@@ -1,32 +1,7 @@
 import numpy as np
 from lib.graph import Graph
-
-
-PRIME_FACTOR = {
-    2 : [2],
-    3 : [3],
-    4 : [4],
-    5 : [5],
-    6 : [2,3],
-    7 : [7],
-    8 : [8],
-    9 : [9],
-    10 : [2,5],
-    11 : [11],
-    12 : [4,3],
-    13 : [13],
-    14 : [2,7],
-    15 : [5,3],
-    16 : [16],
-    17 : [17],
-    18 : [9,2],
-    19 : [19],
-    20 : [5,4],
-    21 : [7,3],
-}
-ODD_PRIME = [3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97]
-PRIME = [2] + ODD_PRIME
-
+from lib.prime import ODD_PRIME, PRIME_FACTOR, prime_factor
+from lib.algorithms import *
 
 def hammingDistance(n1, n2):
 
@@ -76,10 +51,22 @@ def get_largest_cyclic_factor_cube(n: int) -> int:
     for p in ODD_PRIME:
         if p > n:
             break
-        flag =1
+        flag = 0
         for i in range(2,n+1):
-            for f in PRIME_FACTOR[i]:
-                if f%p ==0 and f > flag:
-                    flag =f
-        ans *= flag
+            for f,m in prime_factor(i):
+                if f == p  and m > flag:
+                    flag = m
+        ans *= p**flag
     return ans
+
+def ncube_reduce_graph(n: int) -> Graph:
+    nk = n*2
+    g = Graph(nk)
+    for i in range(n):
+        g.addEdge(2*i, 2*i+1,combination(n-1, i))
+
+    for i in range(n-1):
+        g.addEdge(2*i, 2*i+2,combination(n-1, i)*(n-1-i))
+        g.addEdge(2*i+1, 2*i+3,combination(n-1, i)*(n-1-i))
+    
+    return g

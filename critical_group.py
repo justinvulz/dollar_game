@@ -11,57 +11,31 @@ from lib.algorithms import *
 #     # print(invariant_factors(l[1:, 1:]))
 #     print(f"{i:<3}",get_largest_cyclic_factor_cube(i))
 
-def prime_factor(n: int) -> list[int]:
-    ans = []
-    for i in range(2, n+1):
-        while n%i == 0:
-            ans.append(i)
-            n = n//i
-    return ans
+
 
 # print(prime_factor(129))
 
-def factorial(n: int) -> int:
-    if n == 0:
-        return 1
-    return n*factorial(n-1)
 
-
-def combination(n: int, k: int) -> int:
-    return factorial(n)//(factorial(k)*factorial(n-k))
-
-
-def ncube_reduce_graph(n: int) -> Graph:
-    nk = n*2
-    g = Graph(nk)
-    for i in range(n):
-        g.addEdge(2*i, 2*i+1,combination(n-1, i))
-
-    for i in range(n-1):
-        g.addEdge(2*i, 2*i+2,combination(n-1, i)*(n-1-i))
-        g.addEdge(2*i+1, 2*i+3,combination(n-1, i)*(n-1-i))
-    
-    return g
 
 
 
 # for i in range(2, 12):
 #     print(i, end=': ')
 #     print(get_largest_cyclic_factor_cube(i))
-# for i in range(2, 12):
-#     print(i)
-#     n = i
-#     N = get_largest_cyclic_factor_cube(n)
-#     g = ncube_reduce_graph(n)
-#     d = Divisor(g, [N, -N] + [0]*(2*n-2))
-#     a = greedy(d)
-#     with  open("critical_group.txt", "a") as f :
-#         f.write(f"{i}".center(20, "=")+'\n')
-#         if all(i >=0 for i in a):
-#             f.write(str(a)+'\n')
-#         else:
-#             a = [i - min(a) for i in a]
-#             f.write(str(a)+'\n')
+for i in range(2, 12):
+    print(i)
+    n = i
+    N = get_largest_cyclic_factor_cube(n)
+    g = ncube_reduce_graph(n)
+    d = Divisor(g, [N, -N] + [0]*(2*n-2))
+    a = greedy(d)
+    with  open("critical_group.txt", "a") as f :
+        f.write(f"{i}".center(20, "=")+'\n')
+        if all(i >=0 for i in a):
+            f.write(str(a)+'\n')
+        else:
+            a = [i - min(a) for i in a]
+            f.write(str(a)+'\n')
 
 # n = 10
 # g = ncube_graph(n)
@@ -92,4 +66,5 @@ def ncube_reduce_graph(n: int) -> Graph:
 # print(np.count_nonzero(ans))
 # print(ans)
 
-print(ncube_reduce_graph(4).laplacianMatrix())
+# for n in range(2,14):
+#     print(get_largest_cyclic_factor_cube(n))
